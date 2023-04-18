@@ -5,6 +5,12 @@ import TaskForm from "./TaskForm";
 import TaskHookForm from "./TaskHookForm";
 import PeopleForm from "./PeopleForm";
 import { initialTasks, initialTeam } from "./data";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+export function notify (text){
+  toast(text);
+}
 
 
 function App() {
@@ -20,11 +26,17 @@ function App() {
   }
 
   function handleComplete(id) {
-    console.log("tamamlama fonksiyonunu buraya yazın")
+    let taskclone = [...tasks] 
+    const taskclonecomplated = taskclone.find((t) => t.id === id)
+    taskclonecomplated.status = "yapıldı"
+    setTasks (taskclone)
+    notify("Task tamamlandı.")
+
   }
 
   return (
     <div className="app">
+      <ToastContainer/>
       <div className="formColumn">
         <div className="form-container">
           <h2>Yeni Task</h2>
